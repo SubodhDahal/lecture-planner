@@ -5,6 +5,8 @@
   "author": "Subodh Dahal",
   "scripts": {
     "start": "./scripts/start.sh",
+    "server": "node ./node_modules/babel-watch/babel-watch.js src/server/index.js",
+    "client": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --open",
     "build": "node ./node_modules/webpack/bin/webpack.js",
     "test": "BABE_ENV=test node ./node_modules/mocha/bin/mocha --require babel-register"
   },

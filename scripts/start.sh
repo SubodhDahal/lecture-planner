@@ -5,10 +5,10 @@ then
     ln -s ../src node_modules/src
 fi
 
-node ./node_modules/babel-watch/babel-watch.js src/server/index.js &
+npm run server &
 backendPid=$!
 
-node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --open &
+npm run client &
 devServerPid=$!
 
 killBackend() {
