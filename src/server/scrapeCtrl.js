@@ -1,16 +1,21 @@
 import nahScraper from './nahScraper'
+import {formatResponse, formatError} from './api'
 
 class ScrapeCtrl {
     getRoutePlan (req, res) {
-        nahScraper.getRoutePlan()
+        let {from, destination, date, time} = req.body
+
+        nahScraper.getRoutePlan(from, destination, date, time)
             .then(response => {
-                console.log(response)
-                res.send(response)
+                res.send(formatResponse(response))
+            })
+            .catch(error => {
+                res.json(formatError(error))
             })
 
     }
 
-    locationSuggestions (keyword, res) {
+    locationSuggestions (req, res) {
         nahScraper.locationSuggestions(keyword)
     }
 }
