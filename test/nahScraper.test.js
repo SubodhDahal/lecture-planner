@@ -1,10 +1,10 @@
 import nahScraper from '../src/server/nahScraper'
 
 test('Gets the security ID for the session', () => {
-    expect.assertions(1);
-    return nahScraper.getRoutePlan()
+    expect.assertions(1)
+    return nahScraper.initalizeScraper('http://www.nah.sh/')
         .then(res => {
-            expect(res).toHaveLength(40)
+            expect(nahScraper.securityId).toHaveLength(40)
         })
         .catch(e => {
             expect(e).toMatch('error')
