@@ -41,6 +41,7 @@ class NahScraper {
         return rp(options)
                 .then(($) => {
                     this.$ = $
+                    return this.securityId
                 })
                 .catch((err) => {
                     return Promise.reject(err)
