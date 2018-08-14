@@ -89,6 +89,27 @@ class NahScraper {
     }
 
     /**
+     * Get location suggestions based on the keyword
+     * @param  {String} keyword
+     * @return {JSON}
+     */
+    locationSuggestions (keyword) {
+        let url = `http://nah.sh.hafas.de/bin/ajax-getstop.exe/dny?tpl=suggest2json&encoding=utf-8&start=1&getstop=1&nojs&S=${keyword}?&REQ0JourneyStopsS0A=255&REQ0JourneyStopsB=12`
+
+        return new Promise((resolve, reject) => {
+            rp(url)
+                .then((res) => {
+                    let suggestions = this.parseRouteSuggestions(res)
+
+                    resolve(suggestions)
+                })
+                .catch((err) => {
+                    reject(err.message)
+                })
+        })
+    }
+
+    /**
      * Get the results in a json format
      * @param  {String} html
      * @return {Object}
@@ -155,6 +176,17 @@ class NahScraper {
         }
 
         return parsedResults
+    }
+
+    /**
+     * Get only the name of stops from the suggestions
+     * @param  {[type]} routes [description]
+     * @return {[type]}        [description]
+     */
+    parseRouteSuggestions (routes) {
+        routes = JSON.parse(routes)
+
+        return routes.suggestions.map(suggestion => suggestion.value)
     }
 }
 

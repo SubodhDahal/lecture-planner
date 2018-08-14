@@ -2,6 +2,12 @@ import nahScraper from './nahScraper'
 import {formatResponse, formatError} from './api'
 
 class ScrapeCtrl {
+    /**
+     * Get the route plan
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {JSON}
+     */
     getRoutePlan (req, res) {
         let {from, destination, date, time} = req.body
 
@@ -15,8 +21,20 @@ class ScrapeCtrl {
 
     }
 
+     /**
+     * Get the location suggestions based on the provided keyword
+     * @param  {Object} req
+     * @param  {Object} res
+     * @return {JSON}
+     */
     locationSuggestions (req, res) {
-        nahScraper.locationSuggestions(keyword)
+        nahScraper.locationSuggestions(req.params.keyword)
+            .then(response => {
+                res.send(formatResponse(response))
+            })
+            .catch(error => {
+                res.json(formatError(error))
+            })
     }
 }
 

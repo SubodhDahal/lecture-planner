@@ -11,6 +11,7 @@ const server = http.Server(app)
 
 /** Route plan -- START */
 app.post('/route-plan', scrapeCtrl.getRoutePlan)
+app.get('/route-suggestions/:keyword', scrapeCtrl.locationSuggestions)
 /** Route plan -- END */
 
 server.listen(3000)
