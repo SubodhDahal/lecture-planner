@@ -1,6 +1,8 @@
 import React from 'react'
 // import {connect} from 'react-redux'
-import Modal from 'react-modal'
+
+import AppHeader from './AppHeader'
+import RouteSearch from './RouteSearch'
 
 export default class App extends React.Component {
     constructor(props) {
@@ -9,7 +11,8 @@ export default class App extends React.Component {
 
     render() {
         return <div>
-            Hello World!
+            <AppHeader />
+            <RouteSearch />
         </div>
     }
 }
