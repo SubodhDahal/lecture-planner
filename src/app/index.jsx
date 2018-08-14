@@ -7,7 +7,7 @@ import store from './store/index'
 import axios from 'axios'
 
 import './style.css'
-import App from './App'
+import App from './components/App'
 
 ReactDOM.render(
     <Provider store={store}>
