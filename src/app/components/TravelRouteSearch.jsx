@@ -7,16 +7,28 @@ import TextField from '@material-ui/core/TextField'
 
 import {
     setSourceAddress,
-    setDestinationAddress
+    setDestinationAddress,
+    performRouteSearch
 } from '../store/actions'
 
+function initialState() {
+    return {
+        source: '',
+        destination: ''
+    }
+}
+
 @connect()
-export default class RouteSearch extends React.Component {
+export default class TravelRouteSearch extends React.Component {
     constructor (props) {
         super(props)
 
-        this._handleSourceAddressChange = this._handleSourceAddressChange.bind(this)
-        this._handleDestinationAddressChange = this._handleDestinationAddressChange.bind(this)
+        this.state = initialState()
+
+        this._handleSourceAddressChange = e => this.setState({source: e.target.value})
+        this._handleDestinationAddressChange = e => this.setState({destination: e.target.value})
+
+        this._handleRouteSearch = this._handleRouteSearch.bind(this)
     }
 
     render () {
@@ -41,22 +53,21 @@ export default class RouteSearch extends React.Component {
                 <Button
                     variant="raised"
                     color="primary"
-                    fullWidth={true}>
+                    fullWidth={true}
+                    onClick={this._handleRouteSearch}>
                   Find routes
                 </Button>
             </Grid>
         </Grid>
     }
 
-    _handleSourceAddressChange (event) {
+    _handleRouteSearch (event) {
+        event.preventDefault()
+        const {source, destination} = this.state
         const {dispatch} = this.props
 
-        dispatch(setSourceAddress(event.target.value))
-    }
-
-    _handleDestinationAddressChange (event) {
-        const {dispatch} = this.props
-
-        dispatch(setDestinationAddress(event.target.value))
+        dispatch(setSourceAddress(source))
+        dispatch(setDestinationAddress(destination))
+        dispatch(performRouteSearch(source, destination))
     }
 }
