@@ -16,6 +16,7 @@ class ScrapeCtrl {
                 res.send(formatResponse(response))
             })
             .catch(error => {
+                res.status(400)
                 res.json(formatError(error))
             })
 
@@ -33,6 +34,7 @@ class ScrapeCtrl {
                 res.send(formatResponse(response))
             })
             .catch(error => {
+                res.status(400)
                 res.json(formatError(error))
             })
     }

@@ -27,7 +27,7 @@ class Navigation extends React.Component {
 
         return <div className={this.props.classes.root} >
             <List component="nav">
-                <ListItem button component={Link} to="/" exact>
+                <ListItem button component={Link} to="/">
                     <ListItemText primary="Home" />
                 </ListItem>
                 <ListItem button component={Link} to="/search">

@@ -3,7 +3,9 @@ import axios from 'axios'
 import {
     SET_SOURCE_ADDRESS,
     SET_DESTINATION_ADDRESS,
-    SET_TRAVEL_ROUTES
+    SET_TRAVEL_ROUTES,
+    CLEAR_MESSAGE,
+    SET_ERROR_MESSAGE
 } from './action-types'
 
 export const setSourceAddress = address => ({
@@ -21,8 +23,19 @@ export const setRoutes = (routes) => ({
     payload: routes
 })
 
+export const clearMessage = () => ({
+    type: CLEAR_MESSAGE
+})
+
+export const setErrorMessage = (message) => ({
+    type: SET_ERROR_MESSAGE,
+    payload: message
+})
+
 export const performRouteSearch = (source, destination) => async dispatch => {
     try {
+        dispatch(clearMessage())
+
         const res = await axios.post('http://localhost:3000/route-plan', {
             from: source,
             destination: destination,
@@ -32,6 +45,6 @@ export const performRouteSearch = (source, destination) => async dispatch => {
 
         dispatch(setRoutes(res.data.data))
     } catch (e) {
-        console.log('ERROR', e)
+        dispatch(setErrorMessage(e.response.data.message))
     }
 }

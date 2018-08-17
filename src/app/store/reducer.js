@@ -1,7 +1,9 @@
 import {
     SET_SOURCE_ADDRESS,
     SET_DESTINATION_ADDRESS,
-    SET_TRAVEL_ROUTES
+    SET_TRAVEL_ROUTES,
+    CLEAR_MESSAGE,
+    SET_ERROR_MESSAGE
 } from './action-types'
 
 const initialState = () => ({
@@ -9,7 +11,13 @@ const initialState = () => ({
         source: '',
         destination: ''
     },
-    travelRoutes: []
+    travelRoutes: [],
+    message: initialMessage()
+})
+
+const initialMessage = () => ({
+    type: '',
+    text: ''
 })
 
 export default function reducer(state = initialState(), action) {
@@ -24,6 +32,12 @@ export default function reducer(state = initialState(), action) {
 
         case SET_TRAVEL_ROUTES:
             return setTravelRoutes(state, payload)
+
+        case CLEAR_MESSAGE:
+            return clearMessage(state)
+
+        case SET_ERROR_MESSAGE:
+            return setErrorMessage(state, payload)
 
         default:
             return state
@@ -62,5 +76,22 @@ function setTravelRoutes(state, payload) {
     return {
         ...state,
         travelRoutes: payload
+    }
+}
+
+function clearMessage(state) {
+    return {
+        ...state,
+        message: initialMessage()
+    }
+}
+
+function setErrorMessage(state, payload) {
+    return {
+        ...state,
+        message: {
+            type: 'error',
+            text: payload
+        }
     }
 }

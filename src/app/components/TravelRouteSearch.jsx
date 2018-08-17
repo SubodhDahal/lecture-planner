@@ -54,6 +54,7 @@ export default class TravelRouteSearch extends React.Component {
                     variant="raised"
                     color="primary"
                     fullWidth={true}
+                    disabled={this.state.source === '' || this.state.destination === ''}
                     onClick={this._handleRouteSearch}>
                   Find routes
                 </Button>
