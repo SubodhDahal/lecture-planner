@@ -4,6 +4,7 @@ import {
     SET_SOURCE_ADDRESS,
     SET_DESTINATION_ADDRESS,
     SET_TRAVEL_ROUTES,
+    SET_UNIVERSITIES,
     CLEAR_MESSAGE,
     SET_ERROR_MESSAGE,
     TOGGLE_SIDE_MENU
@@ -24,6 +25,11 @@ export const setRoutes = (routes) => ({
     payload: routes
 })
 
+export const setUniversities = (universities) => ({
+    type: SET_UNIVERSITIES,
+    payload: universities
+})
+
 export const clearMessage = () => ({
     type: CLEAR_MESSAGE
 })
@@ -36,6 +42,18 @@ export const setErrorMessage = (message) => ({
 export const toggleSideMenu = () => ({
     type: TOGGLE_SIDE_MENU
 })
+
+export const getUniversities = () => async dispatch => {
+    try {
+        dispatch(clearMessage())
+
+        const res = await axios.get('http://localhost:3000/universities')
+
+        dispatch(setUniversities(res.data.data))
+    } catch (e) {
+        dispatch(setErrorMessage(e.response.data.message))
+    }
+}
 
 export const performRouteSearch = (source, destination) => async dispatch => {
     try {

@@ -17,5 +17,16 @@ app.post('/route-plan', scrapeCtrl.getRoutePlan)
 app.get('/route-suggestions/:keyword', scrapeCtrl.locationSuggestions)
 /** Route plan -- END */
 
+app.get('/universities', function (req, res) {
+    res.json({
+        status: 'success',
+        data: {
+            'Kiel Fachhochschule': 'Fachhochschule Kiel',
+            'Kiel Universität': 'Christian Albrechts University, Kiel',
+            'Kiel, Post, Knooper Weg': 'Muthesius Kunsthochschule, Kiel'
+        }
+    })
+})
+
 server.listen(3000)
 console.log('listening on :3000')

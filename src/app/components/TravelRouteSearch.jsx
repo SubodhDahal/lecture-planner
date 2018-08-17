@@ -3,27 +3,32 @@ import {connect} from 'react-redux'
 
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
 import TextField from '@material-ui/core/TextField'
 
 import {
     setSourceAddress,
     setDestinationAddress,
+    getUniversities,
     performRouteSearch
 } from '../store/actions'
 
 function initialState() {
     return {
-        source: 'Kiel Steenbeker Weg',
-        destination: 'Kiel Fachhochschule'
+        source: '',
+        destination: ''
     }
 }
 
-@connect()
+@connect(({universities}) => ({universities}))
 export default class TravelRouteSearch extends React.Component {
     constructor (props) {
         super(props)
 
         this.state = initialState()
+
+        props.dispatch(getUniversities())
 
         this._handleSourceAddressChange = e => this.setState({source: e.target.value})
         this._handleDestinationAddressChange = e => this.setState({destination: e.target.value})
@@ -32,6 +37,12 @@ export default class TravelRouteSearch extends React.Component {
     }
 
     render () {
+        let universities = []
+
+        for (let key in this.props.universities) {
+            universities.push(<MenuItem value={key} key={key}>{this.props.universities[key]}</MenuItem>)
+        }
+
         return <Grid container spacing={24}>
             <Grid item xs={12}>
                 <TextField
@@ -42,12 +53,13 @@ export default class TravelRouteSearch extends React.Component {
                 />
             </Grid>
             <Grid item xs={12}>
-                <TextField
-                    id="destination"
-                    placeholder="Destination"
-                    fullWidth={true}
+                <Select
                     onChange={this._handleDestinationAddressChange}
-                />
+                    value={this.state.destination}
+                    fullWidth
+                >
+                    {universities}
+                </Select>
             </Grid>
             <Grid item xs={12}>
                 <Button
