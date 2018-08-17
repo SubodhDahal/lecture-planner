@@ -14,6 +14,7 @@ class NahScraper {
      */
     constructor () {
         this.$ = null   // For DOM manipulation using cheerio
+        this.timeFormat = 'HH:mm'
     }
 
     /**
@@ -53,18 +54,18 @@ class NahScraper {
      * @param  {String} from
      * @param  {String} destination
      * @param  {String} dateIso
-     * @param  {String} time
+     * @param  {String} reachByTime 'the time to reach by'
      * @return {Promise}
      */
-    getRoutePlan (from, destination, dateIso, time) {
-        let encodeText = (text) => he.escape(text, {decimal: true})
-        let encodeTime = (time) => encodeURIComponent(time)
+    getRoutePlan (from, destination, dateIso, reachByTime) {
+        const encodeText = (text) => he.escape(text, {decimal: true})
+        const encodeTime = (reachByTime) => encodeURIComponent(reachByTime)
 
         from = encodeText(from)
         destination = encodeText(destination)
-        time = encodeTime(time)
+        const time = encodeTime(this.calculateStartTime(reachByTime))
 
-        let dateDe = moment(dateIso).format('DD.MM.YYYY')
+        const dateDe = moment(dateIso).format('DD.MM.YYYY')
 
         return new Promise((resolve, reject) => {
             this.initalizeScraper(URL)
@@ -77,7 +78,7 @@ class NahScraper {
                     try {
                         let results = this.getResultsObject(html)
 
-                        resolve(this.parseRouteResults(results))
+                        resolve(this.parseRouteResults(results, reachByTime))
                     } catch (e) {
                         reject(e.message)
                         return
@@ -130,9 +131,10 @@ class NahScraper {
     /**
      * Parse the results of the nah.sh route query
      * @param  {Object} results
+     * @param  {String} reachByTime
      * @return {Array}
      */
-    parseRouteResults (results) {
+    parseRouteResults (results, reachByTime = null) {
         let parsedResults = []
 
         /**
@@ -152,6 +154,11 @@ class NahScraper {
             let locations = {
                 from: locationInfo(connection.from),
                 to: locationInfo(connection.to)
+            }
+
+            // Show only the results within the reachByTime time frame
+            if (!this.isTimeSufficient(reachByTime, locations.to.time)) {
+                continue
             }
 
             let stops = Object.values(connection.sections).map((section, i) => {
@@ -190,6 +197,32 @@ class NahScraper {
         routes = JSON.parse(routes)
 
         return routes.suggestions.map(suggestion => suggestion.value)
+    }
+
+    /**
+     * Calculates the start time so that the destination
+     * can be reached before the specified time
+     * @param  {String} reachByTime
+     * @return {String}
+     */
+    calculateStartTime (reachByTime) {
+        // TODO: Figure out efficient way of calculating start time
+        return moment(reachByTime, this.timeFormat).subtract(1.15, 'hour').format(this.timeFormat)
+    }
+
+    /**
+     * Check if there is sufficient time to reach the final
+     * station without being late
+     * @param  {String}  reachByTime
+     * @param  {String}  stationArrivalTime
+     * @return {Boolean}
+     */
+    isTimeSufficient (reachByTime, stationArrivalTime) {
+        reachByTime = moment(reachByTime, this.timeFormat)
+        stationArrivalTime = moment(stationArrivalTime, this.timeFormat)
+
+        const slackTime = 5
+        return reachByTime.diff(stationArrivalTime) > slackTime
     }
 }
 
