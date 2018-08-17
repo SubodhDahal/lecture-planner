@@ -1,16 +1,22 @@
 import React from 'react'
 
+import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
 export default class TravelRouteStation extends React.Component {
     render () {
-        return <React.Fragment>
+        return <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="flex-start"
+        >
             <Typography>
-                { this.props.name }
+                { this.props.time }
             </Typography>
             <Typography color="textSecondary">
-                &nbsp; { this.props.time }
+                &nbsp; { this.props.name }
             </Typography>
-        </React.Fragment>
+        </Grid>
     }
 }

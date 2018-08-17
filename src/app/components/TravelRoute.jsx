@@ -1,5 +1,6 @@
 import React from 'react'
 
+import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -25,14 +26,21 @@ export default class TravelRoute extends React.Component {
     render () {
         return <React.Fragment>
             <ListItem button onClick={this._toggleDetails}>
-                <TravelRouteStation
-                    name={ this.props.route.from.name }
-                    time={ this.props.route.from.time }
-                />
-                <TravelRouteStation
-                    name={ this.props.route.to.name }
-                    time={ this.props.route.to.time }
-                />
+                <Grid
+                  container
+                  direction="column"
+                  justify="flex-start"
+                  alignItems="flex-start"
+                >
+                    <TravelRouteStation
+                        name={ this.props.route.from.name }
+                        time={ this.props.route.from.time }
+                    />
+                    <TravelRouteStation
+                        name={ this.props.route.to.name }
+                        time={ this.props.route.to.time }
+                    />
+                </Grid>
                 {this.state.showDetails ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
 
