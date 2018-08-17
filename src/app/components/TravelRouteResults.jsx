@@ -11,7 +11,12 @@ export default class TravelRouteResults extends React.Component {
         let routes = []
 
         for (var i = 0; i < this.props.travelRoutes.length; i++) {
-            routes.push(<TravelRoute route={this.props.travelRoutes[i]} key={`route_${i}`} />)
+            let routeKey = `route_${i}`
+            routes.push(<TravelRoute
+                route={this.props.travelRoutes[i]}
+                routeKey={routeKey}
+                key={routeKey}
+            />)
         }
 
         return <List>

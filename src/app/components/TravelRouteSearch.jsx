@@ -13,8 +13,8 @@ import {
 
 function initialState() {
     return {
-        source: '',
-        destination: ''
+        source: 'Kiel Steenbeker Weg',
+        destination: 'Kiel Fachhochschule'
     }
 }
 
