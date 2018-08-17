@@ -69,7 +69,7 @@ class TravelRouteDetails extends React.Component {
             vehicleIcon = <DirectionsBusTwoTone></DirectionsBusTwoTone>
         } else if (routeVehicle.indexOf('Walk') !== -1) {
             vehicleIcon = <DirectionsWalkTwoTone></DirectionsWalkTwoTone>
-        } else if (routeVehicle.indexOf('F&#228;hre') !== -1) {
+        } else if (routeVehicle.indexOf('Fähre') !== -1) {
             vehicleIcon = <DirectionsBoatTwoTone></DirectionsBoatTwoTone>
         }
 

@@ -142,7 +142,7 @@ class NahScraper {
          */
         let locationInfo = (data) => {
             return {
-                name: data.location.name,
+                name: he.decode(data.location.name),
                 time: typeof data.arr !== 'undefined' ? data.arr.time : data.dep.time,
                 date: typeof data.arr !== 'undefined' ? data.arr.date : data.dep.date,
             }
@@ -155,7 +155,7 @@ class NahScraper {
             }
 
             let stops = Object.values(connection.sections).map((section, i) => {
-                let vehicle = connection.products[i].name.replace(/\s\s+/g, ' ')
+                let vehicle = he.decode(connection.products[i].name.replace(/\s\s+/g, ' '))
 
                 if (vehicle === '') {
                     vehicle = 'Walk'
