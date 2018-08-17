@@ -155,7 +155,9 @@ class NahScraper {
             }
 
             let stops = Object.values(connection.sections).map((section, i) => {
+                console.log('Section', connection.products[i])
                 let vehicle = he.decode(connection.products[i].name.replace(/\s\s+/g, ' '))
+                let direction = connection.products[i].direction ? he.decode(connection.products[i].direction) : null
 
                 if (vehicle === '') {
                     vehicle = 'Walk'
@@ -168,7 +170,8 @@ class NahScraper {
                     to: {
                         ...locationInfo(section.to),
                     },
-                    vehicle
+                    vehicle,
+                    direction
                 }
             })
 

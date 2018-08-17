@@ -31,6 +31,8 @@ class TravelRouteDetails extends React.Component {
 
             let vehicleIcon = this._getVehicleIcon(routeStop.vehicle)
 
+            let vehicleDirection = routeStop.direction ? <React.Fragment>→ { routeStop.direction }</React.Fragment> : ''
+
             stations.push(<ListItem key={`routeStop_${this.props.routeKey}_${i}`}>
                 { vehicleIcon }
                 <List dense={true} disablePadding>
@@ -44,7 +46,7 @@ class TravelRouteDetails extends React.Component {
                         key={`routeStop_${this.props.routeKey}_${i}_vehicle`}
                         className={this.props.classes.vehicleRoutes}
                     >
-                        <Typography color="textPrimary">{ routeStop.vehicle}</Typography>
+                        <Typography color="textPrimary">{ routeStop.vehicle} { vehicleDirection }</Typography>
                     </ListItem>
                     <ListItem
                         key={`routeStop_${this.props.routeKey}_${i}_to`}
