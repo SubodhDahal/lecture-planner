@@ -1,11 +1,16 @@
 import React from 'react'
-import {Link, Route} from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
+
+import {
+    toggleSideMenu
+} from '../store/actions'
 
 const styles = {
     root: {
@@ -19,9 +24,10 @@ const styles = {
     }
 }
 
+@connect(({showSideMenu}) => ({showSideMenu}))
 class Navigation extends React.Component {
     render () {
-        if (!this.props.show) {
+        if (!this.props.showSideMenu) {
             return <div></div>
         }
 
@@ -35,6 +41,12 @@ class Navigation extends React.Component {
                 </ListItem>
             </List>
         </div>
+    }
+
+    _handleClick () {
+        const {dispatch} = this.props
+
+        dispatch(toggleSideMenu())
     }
 }
 

@@ -3,7 +3,8 @@ import {
     SET_DESTINATION_ADDRESS,
     SET_TRAVEL_ROUTES,
     CLEAR_MESSAGE,
-    SET_ERROR_MESSAGE
+    SET_ERROR_MESSAGE,
+    TOGGLE_SIDE_MENU
 } from './action-types'
 
 const initialState = () => ({
@@ -12,7 +13,8 @@ const initialState = () => ({
         destination: ''
     },
     travelRoutes: [],
-    message: initialMessage()
+    message: initialMessage(),
+    showSideMenu: false
 })
 
 const initialMessage = () => ({
@@ -38,6 +40,9 @@ export default function reducer(state = initialState(), action) {
 
         case SET_ERROR_MESSAGE:
             return setErrorMessage(state, payload)
+
+        case TOGGLE_SIDE_MENU:
+            return toggleSideMenu(state)
 
         default:
             return state
@@ -93,5 +98,12 @@ function setErrorMessage(state, payload) {
             type: 'error',
             text: payload
         }
+    }
+}
+
+function toggleSideMenu(state) {
+    return {
+        ...state,
+        showSideMenu: !state.showSideMenu
     }
 }

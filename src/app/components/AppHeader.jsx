@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 
 import AppBar from '@material-ui/core/AppBar'
@@ -10,21 +11,23 @@ import Typography from '@material-ui/core/Typography'
 
 import Navigation from './Navigation'
 
+import {
+    toggleSideMenu
+} from '../store/actions'
+
 const styles = {
     header: {
         marginBottom: 25
     }
 }
 
+@connect()
 class AppHeader extends React.Component {
     constructor (props) {
         super(props)
+        const {dispatch} = this.props
 
-        this.state = {
-            showMenu: false
-        }
-
-        this._toggleNav = this._toggleNav.bind(this)
+        this._toggleNav = () => dispatch(toggleSideMenu())
     }
 
     render () {
@@ -40,15 +43,8 @@ class AppHeader extends React.Component {
                 </Toolbar>
             </AppBar>
 
-            <Navigation show={this.state.showMenu} />
+            <Navigation />
         </Grid>
-    }
-
-    _toggleNav () {
-        this.setState({
-            ...this.state,
-            showMenu: !this.state.showMenu
-        })
     }
 }
 

@@ -5,7 +5,8 @@ import {
     SET_DESTINATION_ADDRESS,
     SET_TRAVEL_ROUTES,
     CLEAR_MESSAGE,
-    SET_ERROR_MESSAGE
+    SET_ERROR_MESSAGE,
+    TOGGLE_SIDE_MENU
 } from './action-types'
 
 export const setSourceAddress = address => ({
@@ -30,6 +31,10 @@ export const clearMessage = () => ({
 export const setErrorMessage = (message) => ({
     type: SET_ERROR_MESSAGE,
     payload: message
+})
+
+export const toggleSideMenu = () => ({
+    type: TOGGLE_SIDE_MENU
 })
 
 export const performRouteSearch = (source, destination) => async dispatch => {
