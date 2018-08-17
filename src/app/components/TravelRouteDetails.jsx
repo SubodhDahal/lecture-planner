@@ -58,7 +58,7 @@ class TravelRouteDetails extends React.Component {
             </ListItem>)
         }
 
-        return <Collapse in={true} timeout="auto" unmountOnExit>
+        return <Collapse in={this.props.show} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
                 {stations}
             </List>
