@@ -190,13 +190,15 @@ class NahScraper {
 
     /**
      * Get only the name of stops from the suggestions
-     * @param  {[type]} routes [description]
-     * @return {[type]}        [description]
+     * @param  {String} routes
+     * @return {Array}
      */
     parseRouteSuggestions (routes) {
         routes = JSON.parse(routes)
 
-        return routes.suggestions.map(suggestion => suggestion.value)
+        return routes.suggestions.map(suggestion => ({
+            value: suggestion.value
+        }))
     }
 
     /**

@@ -2,6 +2,7 @@ import {
     SET_TITLE,
     SET_SOURCE_ADDRESS,
     SET_DESTINATION_ADDRESS,
+    SET_LOCATION_SUGGESTIONS,
     SET_UNIVERSITIES,
     SET_TRAVEL_ROUTES,
     CLEAR_MESSAGE,
@@ -16,6 +17,7 @@ const initialState = () => ({
         destination: ''
     },
     travelRoutes: [],
+    locationSuggestions: [],
     universities: {},
     message: initialMessage(),
     title: 'Home',
@@ -45,6 +47,9 @@ export default function reducer(state = initialState(), action) {
 
         case SET_UNIVERSITIES:
             return setUniversities(state, payload)
+
+        case SET_LOCATION_SUGGESTIONS:
+            return setLocationSuggestions(state, payload)
 
         case CLEAR_MESSAGE:
             return clearMessage(state)
@@ -109,6 +114,13 @@ function setUniversities(state, payload) {
     return {
         ...state,
         universities: payload
+    }
+}
+
+function setLocationSuggestions(state, payload) {
+    return {
+        ...state,
+        locationSuggestions: payload
     }
 }
 

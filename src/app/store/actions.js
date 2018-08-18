@@ -6,6 +6,7 @@ import {
     SET_DESTINATION_ADDRESS,
     SET_TRAVEL_ROUTES,
     SET_UNIVERSITIES,
+    SET_LOCATION_SUGGESTIONS,
     CLEAR_MESSAGE,
     SET_ERROR_MESSAGE,
     HIDE_SIDE_MENU,
@@ -32,6 +33,11 @@ export const setRoutes = (routes) => ({
     payload: routes
 })
 
+export const setLocationSuggestions = (suggestions) => ({
+    type: SET_LOCATION_SUGGESTIONS,
+    payload: suggestions
+})
+
 export const setUniversities = (universities) => ({
     type: SET_UNIVERSITIES,
     payload: universities
@@ -53,6 +59,18 @@ export const hideSideMenu = () => ({
 export const toggleSideMenu = () => ({
     type: TOGGLE_SIDE_MENU
 })
+
+export const getLocationSuggestions = (keyword) => async dispatch => {
+    try {
+        dispatch(clearMessage())
+
+        const res = await axios.get(`http://localhost:3000/route-suggestions/${keyword}`)
+
+        dispatch(setLocationSuggestions(res.data.data))
+    } catch (e) {
+        dispatch(setErrorMessage(e.response.data.message))
+    }
+}
 
 export const getUniversities = () => async dispatch => {
     try {

@@ -8,23 +8,9 @@ import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
 
 import {
-    setSourceAddress
+    setSourceAddress,
+    getLocationSuggestions
 } from '../store/actions'
-
-const suggestions = [
-  { value: 'Kiel Hbf' },
-  { value: 'Kiel Hauptbahnhof' },
-  { value: 'Kiel HDW' },
-  { value: 'Kiel IPN' },
-  { value: 'Kiel TÜV' },
-  { value: 'Kiel Kaistraße' },
-  { value: 'Kiel IKEA' },
-  { value: 'Kiel ZOB' },
-  { value: 'Kiel-Russee' },
-  { value: 'Kiel Auberg' },
-  { value: 'Kiel plaza' },
-  { value: 'Kiel Im Saal' }
-]
 
 const styles = theme => ({
   root: {
@@ -47,97 +33,99 @@ const styles = theme => ({
   }
 })
 
-@connect()
+@connect(({locationSuggestions}) => ({locationSuggestions}))
 class UserLocationSelect extends React.Component {
     constructor (props) {
         super(props)
         this._handleSourceAddressChange = selection => props.dispatch(setSourceAddress(selection))
+        this._getLocationSuggestions = this._getLocationSuggestions.bind(this)
     }
 
     render () {
         const { classes } = this.props
 
         return <Downshift
-            id="downshift-simple"
+            id="location-select"
             onChange={this._handleSourceAddressChange}
+            onInputValueChange={this._getLocationSuggestions}
         >
             {({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => (
-              <div className={classes.container}>
+                <div className={classes.container}>
                 {this._renderInput({
-                  fullWidth: true,
-                  classes,
-                  InputProps: getInputProps({
-                    placeholder: 'Search your location',
-                  }),
+                    fullWidth: true,
+                    classes,
+                    InputProps: getInputProps({
+                        placeholder: 'Search your location',
+                    }),
                 })}
                 {isOpen ? (
-                  <Paper className={classes.paper} square>
-                    {this._getSuggestions(inputValue).map((suggestion, index) =>
-                      this._renderSuggestion({
-                        suggestion,
-                        index,
-                        itemProps: getItemProps({ item: suggestion.value }),
-                        highlightedIndex,
-                        selectedItem,
-                      }),
-                    )}
-                  </Paper>
-                ) : null}
-              </div>
-            )}
+                    <Paper className={classes.paper} square>
+                    {this.props.locationSuggestions.map((suggestion, index) =>
+                        this._renderSuggestion({
+                            suggestion,
+                            index,
+                            itemProps: getItemProps({ item: suggestion.value }),
+                            highlightedIndex,
+                            selectedItem,
+                        }),
+                        )}
+                    </Paper>
+                    ) : null}
+                </div>
+                )}
         </Downshift>
     }
 
+    /**
+     * Render the input field for typing the location keyword
+     * @param  {Object} inputProps
+     * @return {TextField}
+     */
     _renderInput (inputProps) {
-      const { InputProps, classes, ref, ...other } = inputProps
+        const { InputProps, classes, ref, ...other } = inputProps
 
-      return (
-        <TextField
-          InputProps={{
-            inputRef: ref,
-            classes: {
-              root: classes.inputRoot,
-            },
-            ...InputProps,
-          }}
-          {...other}
+        return <TextField
+            InputProps={{
+                inputRef: ref,
+                classes: {
+                    root: classes.inputRoot,
+                },
+                ...InputProps,
+            }}
+            {...other}
         />
-      )
     }
 
+    /**
+     * The view for displaying location suggestions
+     */
     _renderSuggestion ({ suggestion, index, itemProps, highlightedIndex, selectedItem }) {
-      const isHighlighted = highlightedIndex === index
-      const isSelected = (selectedItem || '').indexOf(suggestion.value) > -1
+        const isHighlighted = highlightedIndex === index
+        const isSelected = (selectedItem || '').indexOf(suggestion.value) > -1
 
-      return (
-        <MenuItem
-          {...itemProps}
-          key={suggestion.value}
-          selected={isHighlighted}
-          component="div"
-          style={{
-            fontWeight: isSelected ? 500 : 400,
-          }}
+        const key = `${suggestion.value.replace(/\s\s+/g, '')}_${index}`
+        return <MenuItem
+            {...itemProps}
+            key={key}
+            selected={isHighlighted}
+            component="div"
+            style={{
+                fontWeight: isSelected ? 500 : 400,
+            }}
         >
-          {suggestion.value}
+            {suggestion.value}
         </MenuItem>
-      )
     }
 
-    _getSuggestions (inputValue) {
-      let count = 0
-
-      return suggestions.filter(suggestion => {
-        const keep =
-          (!inputValue || suggestion.value.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) &&
-          count < 5
-
-        if (keep) {
-          count += 1
+    /**
+     * Get the suggestions for the typed keyword from the server
+     * @param  {String} inputValue
+     */
+    _getLocationSuggestions (inputValue) {
+        const { dispatch } = this.props
+        if (inputValue !== '') {
+            dispatch(getLocationSuggestions(inputValue))
         }
-
-        return keep
-      })
     }
 }
 
