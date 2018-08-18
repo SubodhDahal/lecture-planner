@@ -16,7 +16,9 @@ import {
     setSourceAddress,
     setDestinationAddress,
     getUniversities,
-    performRouteSearch
+    performRouteSearch,
+    setSuccessMessage,
+    setErrorMessage
 } from '../store/actions'
 
 function initialState() {
@@ -93,7 +95,7 @@ export default class UserDetails extends React.Component {
                 university: destination
             })
 
-            console.log('Saved to database')
+            dispatch(setSuccessMessage(res.data.data.message))
         } catch (e) {
             dispatch(setErrorMessage(e.response.data.message))
         }

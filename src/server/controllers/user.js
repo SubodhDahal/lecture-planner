@@ -16,6 +16,7 @@ class UserCtrl {
                 }))
             })
             .catch(err => {
+                res.status(400)
                 res.json(formatError(err.message))
             })
     }

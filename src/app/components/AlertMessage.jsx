@@ -19,7 +19,7 @@ class AlertMessage extends React.Component {
             return <div></div>
         }
 
-        const color = this.props.message.type === 'error' ? 'error' : 'primary'
+        const color = this._getMessageColor()
 
         return <Card className={this.props.classes.root}>
             <CardContent>
@@ -28,6 +28,21 @@ class AlertMessage extends React.Component {
                 </Typography>
             </CardContent>
         </Card>
+    }
+
+    _getMessageColor () {
+        let color
+
+        switch (this.props.message.type) {
+            case 'error':
+                color = 'error'
+                break
+
+            default:
+                color = 'primary'
+        }
+
+        return color
     }
 }
 

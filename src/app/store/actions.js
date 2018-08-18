@@ -8,6 +8,7 @@ import {
     SET_UNIVERSITIES,
     SET_LOCATION_SUGGESTIONS,
     CLEAR_MESSAGE,
+    SET_SUCCESS_MESSAGE,
     SET_ERROR_MESSAGE,
     HIDE_SIDE_MENU,
     TOGGLE_SIDE_MENU
@@ -45,6 +46,11 @@ export const setUniversities = (universities) => ({
 
 export const clearMessage = () => ({
     type: CLEAR_MESSAGE
+})
+
+export const setSuccessMessage = (message) => ({
+    type: SET_SUCCESS_MESSAGE,
+    payload: message
 })
 
 export const setErrorMessage = (message) => ({

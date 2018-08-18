@@ -6,6 +6,7 @@ import {
     SET_UNIVERSITIES,
     SET_TRAVEL_ROUTES,
     CLEAR_MESSAGE,
+    SET_SUCCESS_MESSAGE,
     SET_ERROR_MESSAGE,
     HIDE_SIDE_MENU,
     TOGGLE_SIDE_MENU
@@ -56,6 +57,9 @@ export default function reducer(state = initialState(), action) {
 
         case SET_ERROR_MESSAGE:
             return setErrorMessage(state, payload)
+
+        case SET_SUCCESS_MESSAGE:
+            return setSuccessMessage(state, payload)
 
         case HIDE_SIDE_MENU:
             return hideSideMenu(state)
@@ -128,6 +132,16 @@ function clearMessage(state) {
     return {
         ...state,
         message: initialMessage()
+    }
+}
+
+function setSuccessMessage(state, payload) {
+    return {
+        ...state,
+        message: {
+            type: 'success',
+            text: payload
+        }
     }
 }
 
