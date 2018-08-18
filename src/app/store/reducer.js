@@ -6,6 +6,7 @@ import {
     SET_TRAVEL_ROUTES,
     CLEAR_MESSAGE,
     SET_ERROR_MESSAGE,
+    HIDE_SIDE_MENU,
     TOGGLE_SIDE_MENU
 } from './action-types'
 
@@ -50,6 +51,9 @@ export default function reducer(state = initialState(), action) {
 
         case SET_ERROR_MESSAGE:
             return setErrorMessage(state, payload)
+
+        case HIDE_SIDE_MENU:
+            return hideSideMenu(state)
 
         case TOGGLE_SIDE_MENU:
             return toggleSideMenu(state)
@@ -129,5 +133,12 @@ function toggleSideMenu(state) {
     return {
         ...state,
         showSideMenu: !state.showSideMenu
+    }
+}
+
+function hideSideMenu(state) {
+    return {
+        ...state,
+        showSideMenu: false
     }
 }

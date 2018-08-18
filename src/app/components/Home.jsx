@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography'
 
 import {
+    hideSideMenu,
     setTitle
 } from '../store/actions'
 
@@ -12,6 +13,7 @@ export default class Home extends React.Component {
     constructor (props) {
         super(props)
         props.dispatch(setTitle('Home'))
+        props.dispatch(hideSideMenu())
     }
 
     render () {

@@ -8,6 +8,7 @@ import Select from '@material-ui/core/Select'
 import TextField from '@material-ui/core/TextField'
 
 import {
+    hideSideMenu,
     setTitle,
     setSourceAddress,
     setDestinationAddress,
@@ -30,6 +31,7 @@ export default class TravelRouteSearch extends React.Component {
         this.state = initialState()
 
         props.dispatch(setTitle('Route Search'))
+        props.dispatch(hideSideMenu())
         props.dispatch(getUniversities())
 
         this._handleSourceAddressChange = e => this.setState({source: e.target.value})

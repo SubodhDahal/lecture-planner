@@ -8,6 +8,7 @@ import {
     SET_UNIVERSITIES,
     CLEAR_MESSAGE,
     SET_ERROR_MESSAGE,
+    HIDE_SIDE_MENU,
     TOGGLE_SIDE_MENU
 } from './action-types'
 
@@ -43,6 +44,10 @@ export const clearMessage = () => ({
 export const setErrorMessage = (message) => ({
     type: SET_ERROR_MESSAGE,
     payload: message
+})
+
+export const hideSideMenu = () => ({
+    type: HIDE_SIDE_MENU
 })
 
 export const toggleSideMenu = () => ({
