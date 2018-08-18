@@ -2,13 +2,17 @@ import express from 'express'
 import http from 'http'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import mongoose from 'mongoose'
 
 import scrapeCtrl from './scrapeCtrl'
+import userCtrl from './controllers/user'
 
 const app = express()
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
 app.use(cors())
+
+mongoose.connect('mongodb://localhost/LecturePlannerDB', { useNewUrlParser: true })
 
 const server = http.Server(app)
 
@@ -16,6 +20,8 @@ const server = http.Server(app)
 app.post('/route-plan', scrapeCtrl.getRoutePlan)
 app.get('/route-suggestions/:keyword', scrapeCtrl.locationSuggestions)
 /** Route plan -- END */
+
+app.post('/user-details', userCtrl.setUserAddresses)
 
 app.get('/universities', function (req, res) {
     res.json({
