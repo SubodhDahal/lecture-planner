@@ -16,7 +16,8 @@ test('Gets the list of location suggestions for provided keyword', () => {
     expect.assertions(1)
     return nahScraper.locationSuggestions('kiel')
         .then(suggestions => {
-            expect(suggestions).toContain('Kiel Hauptbahnhof')
+            let routeStations = suggestions.map(station => station.value)
+            expect(routeStations).toContain('Kiel Hauptbahnhof')
         })
         .catch(e => {
             expect(e).toMatch('error')
