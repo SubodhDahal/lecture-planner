@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import {
+    SET_TITLE,
     SET_SOURCE_ADDRESS,
     SET_DESTINATION_ADDRESS,
     SET_TRAVEL_ROUTES,
@@ -9,6 +10,11 @@ import {
     SET_ERROR_MESSAGE,
     TOGGLE_SIDE_MENU
 } from './action-types'
+
+export const setTitle = title => ({
+    type: SET_TITLE,
+    payload: title
+})
 
 export const setSourceAddress = address => ({
     type: SET_SOURCE_ADDRESS,

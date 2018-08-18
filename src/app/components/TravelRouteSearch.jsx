@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -8,6 +8,7 @@ import Select from '@material-ui/core/Select'
 import TextField from '@material-ui/core/TextField'
 
 import {
+    setTitle,
     setSourceAddress,
     setDestinationAddress,
     getUniversities,
@@ -21,13 +22,14 @@ function initialState() {
     }
 }
 
-@connect(({universities}) => ({universities}))
+@connect(({title, universities}) => ({title, universities}))
 export default class TravelRouteSearch extends React.Component {
     constructor (props) {
         super(props)
 
         this.state = initialState()
 
+        props.dispatch(setTitle('Route Search'))
         props.dispatch(getUniversities())
 
         this._handleSourceAddressChange = e => this.setState({source: e.target.value})

@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom'
 
 import AlertMessage from './AlertMessage'
 import AppHeader from './AppHeader'
+import Home from './Home'
 import TravelRouteSearch from './TravelRouteSearch'
 import TravelRouteResults from './TravelRouteResults'
 
@@ -17,7 +18,7 @@ export default class App extends React.Component {
 
             <AlertMessage />
 
-            <Route path="/" component={TravelRouteSearch} />
+            <Route path="/" component={Home} exact />
             <Route path="/search" component={TravelRouteSearch} />
 
             <TravelRouteResults />

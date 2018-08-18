@@ -21,7 +21,7 @@ const styles = {
     }
 }
 
-@connect()
+@connect(({title}) => ({title}))
 class AppHeader extends React.Component {
     constructor (props) {
         super(props)
@@ -38,7 +38,7 @@ class AppHeader extends React.Component {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="title" color="inherit">
-                    Route Search
+                        { this.props.title }
                     </Typography>
                 </Toolbar>
             </AppBar>

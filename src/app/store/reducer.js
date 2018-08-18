@@ -1,4 +1,5 @@
 import {
+    SET_TITLE,
     SET_SOURCE_ADDRESS,
     SET_DESTINATION_ADDRESS,
     SET_UNIVERSITIES,
@@ -16,6 +17,7 @@ const initialState = () => ({
     travelRoutes: [],
     universities: {},
     message: initialMessage(),
+    title: 'Home',
     showSideMenu: false
 })
 
@@ -28,6 +30,9 @@ export default function reducer(state = initialState(), action) {
     const {type, payload} = action
 
     switch (type) {
+        case SET_TITLE:
+            return setTitle(state, payload)
+
         case SET_SOURCE_ADDRESS:
             return setSourceAddress(state, payload)
 
@@ -51,6 +56,13 @@ export default function reducer(state = initialState(), action) {
 
         default:
             return state
+    }
+}
+
+function setTitle(state, payload) {
+    return {
+        ...state,
+        title: payload
     }
 }
 
