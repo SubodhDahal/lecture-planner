@@ -21,19 +21,10 @@ import {
     setErrorMessage
 } from '../store/actions'
 
-function initialState() {
-    return {
-        source: '',
-        destination: ''
-    }
-}
-
 @connect(({title, universities, address}) => ({title, universities, address}))
 export default class UserDetails extends React.Component {
     constructor (props) {
         super(props)
-
-        this.state = initialState()
 
         props.dispatch(setTitle('User Details'))
         props.dispatch(hideSideMenu())
@@ -58,7 +49,7 @@ export default class UserDetails extends React.Component {
             <Grid item xs={12}>
                 <Select
                     onChange={this._handleDestinationAddressChange}
-                    value={this.state.destination}
+                    value={this.props.address.destination}
                     fullWidth
                 >
                     {universities}
@@ -80,7 +71,6 @@ export default class UserDetails extends React.Component {
     _handleDestinationAddressChange (event) {
         const {dispatch} = this.props
 
-        this.setState({destination: event.target.value})
         dispatch(setDestinationAddress(event.target.value))
     }
 

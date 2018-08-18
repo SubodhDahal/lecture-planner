@@ -33,7 +33,7 @@ const styles = theme => ({
   }
 })
 
-@connect(({locationSuggestions}) => ({locationSuggestions}))
+@connect(({address, locationSuggestions}) => ({address, locationSuggestions}))
 class UserLocationSelect extends React.Component {
     constructor (props) {
         super(props)
@@ -48,6 +48,7 @@ class UserLocationSelect extends React.Component {
             id="location-select"
             onChange={this._handleSourceAddressChange}
             onInputValueChange={this._getLocationSuggestions}
+            defaultInputValue={this.props.address.source}
         >
             {({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => (
                 <div className={classes.container}>

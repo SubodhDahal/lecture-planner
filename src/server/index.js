@@ -21,6 +21,7 @@ app.post('/route-plan', scrapeCtrl.getRoutePlan)
 app.get('/route-suggestions/:keyword', scrapeCtrl.locationSuggestions)
 /** Route plan -- END */
 
+app.get('/user-details', userCtrl.getUserAddresses)
 app.post('/user-details', userCtrl.setUserAddresses)
 
 app.get('/universities', function (req, res) {

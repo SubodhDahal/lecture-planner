@@ -5,6 +5,7 @@ import {
     SET_SOURCE_ADDRESS,
     SET_DESTINATION_ADDRESS,
     SET_TRAVEL_ROUTES,
+    GET_USER_DETAILS,
     SET_UNIVERSITIES,
     SET_LOCATION_SUGGESTIONS,
     CLEAR_MESSAGE,
@@ -65,6 +66,27 @@ export const hideSideMenu = () => ({
 export const toggleSideMenu = () => ({
     type: TOGGLE_SIDE_MENU
 })
+
+export const getUserDetails = () => async dispatch => {
+    try {
+        dispatch(clearMessage())
+
+        const res = await axios.get('http://localhost:3000/user-details')
+
+        let location = ''
+        let university = ''
+
+        if (res.data.data) {
+            location = res.data.data.location
+            university = res.data.data.university
+        }
+
+        dispatch(setSourceAddress(location))
+        dispatch(setDestinationAddress(university))
+    } catch (e) {
+        dispatch(setErrorMessage(e.response.data.message))
+    }
+}
 
 export const getLocationSuggestions = (keyword) => async dispatch => {
     try {
