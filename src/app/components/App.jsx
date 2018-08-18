@@ -6,6 +6,7 @@ import AppHeader from './AppHeader'
 import Home from './Home'
 import TravelRouteSearch from './TravelRouteSearch'
 import TravelRouteResults from './TravelRouteResults'
+import UserDetails from './UserDetails'
 
 export default class App extends React.Component {
     constructor(props) {
@@ -19,6 +20,7 @@ export default class App extends React.Component {
             <AlertMessage />
 
             <Route path="/" component={Home} exact />
+            <Route path="/user-details" component={UserDetails} />
             <Route path="/search" component={TravelRouteSearch} />
 
             <TravelRouteResults />
