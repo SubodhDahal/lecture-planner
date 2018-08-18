@@ -7,6 +7,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import TextField from '@material-ui/core/TextField'
 
+import UserLocationSelect from './UserLocationSelect'
+
 import {
     hideSideMenu,
     setTitle,
@@ -23,7 +25,7 @@ function initialState() {
     }
 }
 
-@connect(({title, universities}) => ({title, universities}))
+@connect(({title, universities, address}) => ({title, universities, address}))
 export default class TravelRouteSearch extends React.Component {
     constructor (props) {
         super(props)
@@ -34,8 +36,7 @@ export default class TravelRouteSearch extends React.Component {
         props.dispatch(hideSideMenu())
         props.dispatch(getUniversities())
 
-        this._handleSourceAddressChange = e => this.setState({source: e.target.value})
-        this._handleDestinationAddressChange = e => this.setState({destination: e.target.value})
+        this._handleDestinationAddressChange = this._handleDestinationAddressChange.bind(this)
 
         this._handleRouteSearch = this._handleRouteSearch.bind(this)
     }
@@ -49,12 +50,7 @@ export default class TravelRouteSearch extends React.Component {
 
         return <Grid container spacing={24}>
             <Grid item xs={12}>
-                <TextField
-                    id="source"
-                    placeholder="Start location"
-                    fullWidth={true}
-                    onChange={this._handleSourceAddressChange}
-                />
+                <UserLocationSelect />
             </Grid>
             <Grid item xs={12}>
                 <Select
@@ -70,7 +66,7 @@ export default class TravelRouteSearch extends React.Component {
                     variant="raised"
                     color="primary"
                     fullWidth={true}
-                    disabled={this.state.source === '' || this.state.destination === ''}
+                    disabled={this.props.address.source === '' || this.props.address.destination === ''}
                     onClick={this._handleRouteSearch}>
                   Find routes
                 </Button>
@@ -78,13 +74,18 @@ export default class TravelRouteSearch extends React.Component {
         </Grid>
     }
 
-    _handleRouteSearch (event) {
-        event.preventDefault()
-        const {source, destination} = this.state
+    _handleDestinationAddressChange (event) {
         const {dispatch} = this.props
 
-        dispatch(setSourceAddress(source))
-        dispatch(setDestinationAddress(destination))
+        this.setState({destination: event.target.value})
+        dispatch(setDestinationAddress(event.target.value))
+    }
+
+    _handleRouteSearch (event) {
+        event.preventDefault()
+        const {dispatch} = this.props
+        const {source, destination} = this.props.address
+
         dispatch(performRouteSearch(source, destination))
     }
 }
