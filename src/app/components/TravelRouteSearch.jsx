@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 
+import TravelRouteResults from './TravelRouteResults'
+
 import {
     hideSideMenu,
     setTitle,
@@ -22,7 +24,7 @@ export default class TravelRouteSearch extends React.Component {
     }
 
     render () {
-        return <Grid container spacing={24}>
+        return <Grid container spacing={8}>
             <Grid item xs={12}>
                 <Button
                     variant="raised"
@@ -32,6 +34,9 @@ export default class TravelRouteSearch extends React.Component {
                     onClick={this._handleRouteSearch}>
                   Find routes
                 </Button>
+            </Grid>
+            <Grid item xs={12}>
+                <TravelRouteResults />
             </Grid>
         </Grid>
     }
