@@ -21,7 +21,7 @@ import {
     setErrorMessage
 } from '../store/actions'
 
-@connect(({title, universities, address}) => ({title, universities, address}))
+@connect(({title, universities, address, userId}) => ({title, universities, address, userId}))
 export default class UserDetails extends React.Component {
     constructor (props) {
         super(props)
@@ -82,7 +82,8 @@ export default class UserDetails extends React.Component {
         try {
             const res = await axios.post('http://localhost:3000/user-details', {
                 location: source,
-                university: destination
+                university: destination,
+                userId: this.props.userId
             })
 
             dispatch(setSuccessMessage(res.data.data.message))

@@ -6,6 +6,7 @@ import {
     SET_DESTINATION_ADDRESS,
     SET_TRAVEL_ROUTES,
     GET_USER_DETAILS,
+    SET_USER_ID,
     SET_UNIVERSITIES,
     SET_LOCATION_SUGGESTIONS,
     CLEAR_MESSAGE,
@@ -45,6 +46,11 @@ export const setUniversities = (universities) => ({
     payload: universities
 })
 
+export const setUserId = (userId) => ({
+    type: SET_USER_ID,
+    payload: userId
+})
+
 export const clearMessage = () => ({
     type: CLEAR_MESSAGE
 })
@@ -75,12 +81,15 @@ export const getUserDetails = () => async dispatch => {
 
         let location = ''
         let university = ''
+        let userId = ''
 
         if (res.data.data) {
             location = res.data.data.location
             university = res.data.data.university
+            userId = res.data.data._id
         }
 
+        dispatch(setUserId(userId))
         dispatch(setSourceAddress(location))
         dispatch(setDestinationAddress(university))
     } catch (e) {
