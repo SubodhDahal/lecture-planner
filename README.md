@@ -1,4 +1,4 @@
-# Lecture Planner 
+# Lecture Planner [![Build Status](https://travis-ci.com/SubodhDahal/lecture-planner.svg?token=Mqz54ieof9heq97X4cWZ&branch=master)](https://travis-ci.com/SubodhDahal/lecture-planner)
 
 An application to allow university students in Kiel to find out possible ways for them to reach their university from current/desired location.
 
@@ -17,3 +17,5 @@ npm install
     - `npm run server` to run the server
     - `npm run client` to run the client
 - Open [http://localhost:8080/](http://localhost:8080/)
+
+*Note:* MongoDB daemon needs to be running before starting the server
