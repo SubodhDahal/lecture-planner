@@ -63,9 +63,10 @@ class NahScraper {
 
         from = encodeText(from)
         destination = encodeText(destination)
-        const time = encodeTime(this.calculateStartTime(reachByTime))
 
-        const dateDe = moment(dateIso).format('DD.MM.YYYY')
+        const date = moment(dateIso)
+        const dateDe = date.format('DD.MM.YYYY')
+        const time = encodeTime(this.calculateStartTime(date, reachByTime))
 
         return new Promise((resolve, reject) => {
             this.initalizeScraper(URL)
@@ -204,12 +205,22 @@ class NahScraper {
     /**
      * Calculates the start time so that the destination
      * can be reached before the specified time
+     * @param  {String} date
      * @param  {String} reachByTime
      * @return {String}
      */
-    calculateStartTime (reachByTime) {
+    calculateStartTime (date, reachByTime) {
         // TODO: Figure out efficient way of calculating start time
-        return moment(reachByTime, this.timeFormat).subtract(1.15, 'hour').format(this.timeFormat)
+        let startBefore
+        if (date.day() === 0 || date.day() === 6) {
+            // Buses don't run as frequently on Saturdays
+            // and Sundays, so start sooner
+            startBefore = 2.15
+        } else {
+            startBefore = 1.15
+        }
+
+        return moment(reachByTime, this.timeFormat).subtract(startBefore, 'hour').format(this.timeFormat)
     }
 
     /**
