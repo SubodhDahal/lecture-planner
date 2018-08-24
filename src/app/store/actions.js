@@ -104,7 +104,7 @@ export const getUserDetails = () => async dispatch => {
 export const saveuserDetails = (location, university, userId) => async dispatch => {
     try {
         dispatch(clearMessage())
-        const res = await axios.post(`${SERVER_URL}//user-details`, {
+        const res = await axios.post(`${SERVER_URL}/user-details`, {
             location,
             university,
             userId
