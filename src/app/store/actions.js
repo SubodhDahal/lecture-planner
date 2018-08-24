@@ -16,6 +16,10 @@ import {
     TOGGLE_SIDE_MENU
 } from './action-types'
 
+const SERVER_ROOT = 'localhost'
+const SERVER_PORT = '3000'
+const SERVER_URL = `http://${SERVER_ROOT}:${SERVER_PORT}`
+
 export const setTitle = title => ({
     type: SET_TITLE,
     payload: title
@@ -77,7 +81,7 @@ export const getUserDetails = () => async dispatch => {
     try {
         dispatch(clearMessage())
 
-        const res = await axios.get('http://localhost:3000/user-details')
+        const res = await axios.get(`${SERVER_URL}/user-details`)
 
         let location = ''
         let university = ''
@@ -101,7 +105,7 @@ export const getLocationSuggestions = (keyword) => async dispatch => {
     try {
         dispatch(clearMessage())
 
-        const res = await axios.get(`http://localhost:3000/route-suggestions/${keyword}`)
+        const res = await axios.get(`${SERVER_URL}/route-suggestions/${keyword}`)
 
         dispatch(setLocationSuggestions(res.data.data))
     } catch (e) {
@@ -113,7 +117,7 @@ export const getUniversities = () => async dispatch => {
     try {
         dispatch(clearMessage())
 
-        const res = await axios.get('http://localhost:3000/universities')
+        const res = await axios.get(`${SERVER_URL}/universities`)
 
         dispatch(setUniversities(res.data.data))
     } catch (e) {
@@ -125,7 +129,7 @@ export const performRouteSearch = (source, destination) => async dispatch => {
     try {
         dispatch(clearMessage())
 
-        const res = await axios.post('http://localhost:3000/route-plan', {
+        const res = await axios.post(`${SERVER_URL}/route-plan`, {
             from: source,
             destination: destination,
             date: '2018-08-17',
