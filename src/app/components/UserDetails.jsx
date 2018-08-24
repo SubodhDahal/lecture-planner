@@ -16,9 +16,7 @@ import {
     setSourceAddress,
     setDestinationAddress,
     getUniversities,
-    performRouteSearch,
-    setSuccessMessage,
-    setErrorMessage
+    saveuserDetails
 } from '../store/actions'
 
 @connect(({title, universities, address, userId}) => ({title, universities, address, userId}))
@@ -74,21 +72,11 @@ export default class UserDetails extends React.Component {
         dispatch(setDestinationAddress(event.target.value))
     }
 
-    async _saveUserDetails (event) {
+    _saveUserDetails (event) {
         event.preventDefault()
         const {dispatch} = this.props
         const {source, destination} = this.props.address
 
-        try {
-            const res = await axios.post('http://localhost:3000/user-details', {
-                location: source,
-                university: destination,
-                userId: this.props.userId
-            })
-
-            dispatch(setSuccessMessage(res.data.data.message))
-        } catch (e) {
-            dispatch(setErrorMessage(e.response.data.message))
-        }
+        dispatch(saveuserDetails(source, destination, this.props.userId))
     }
 }

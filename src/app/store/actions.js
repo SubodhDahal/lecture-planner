@@ -101,6 +101,21 @@ export const getUserDetails = () => async dispatch => {
     }
 }
 
+export const saveuserDetails = (location, university, userId) => async dispatch => {
+    try {
+        dispatch(clearMessage())
+        const res = await axios.post(`${SERVER_URL}//user-details`, {
+            location,
+            university,
+            userId
+        })
+
+        dispatch(setSuccessMessage(res.data.data.message))
+    } catch (e) {
+        dispatch(setErrorMessage(e.response.data.message))
+    }
+}
+
 export const getLocationSuggestions = (keyword) => async dispatch => {
     try {
         dispatch(clearMessage())
