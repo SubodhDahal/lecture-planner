@@ -9,11 +9,19 @@ import store from './store/index'
 import './style.css'
 import App from './components/App'
 
-ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <App/>
-        </Router>
-    </Provider>,
-    document.getElementById('app')
-)
+function startApp () {
+    ReactDOM.render(
+        <Provider store={store}>
+            <Router>
+                <App/>
+            </Router>
+        </Provider>,
+        document.getElementById('app')
+    )
+}
+
+if (window.cordova) {
+  document.addEventListener('deviceready', startApp, false)
+} else {
+  startApp()
+}
