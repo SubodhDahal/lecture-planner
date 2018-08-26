@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 
+import { isAddressSet } from '../utilities'
+
 import TravelRouteResults from './TravelRouteResults'
 
 import {
@@ -30,7 +32,7 @@ export default class TravelRouteSearch extends React.Component {
                     variant="raised"
                     color="primary"
                     fullWidth={true}
-                    disabled={this.props.address.source === '' || this.props.address.destination === ''}
+                    disabled={!isAddressSet(this.props.address)}
                     onClick={this._handleRouteSearch}>
                   Find routes
                 </Button>

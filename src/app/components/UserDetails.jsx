@@ -8,6 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import TextField from '@material-ui/core/TextField'
 
+import { isAddressSet } from '../utilities'
+
 import UserLocationSelect from './UserLocationSelect'
 
 import {
@@ -58,7 +60,7 @@ export default class UserDetails extends React.Component {
                     variant="raised"
                     color="primary"
                     fullWidth={true}
-                    disabled={this.props.address.source === '' || this.props.address.destination === ''}
+                    disabled={!isAddressSet(this.props.address)}
                     onClick={this._saveUserDetails}>
                   Save
                 </Button>
