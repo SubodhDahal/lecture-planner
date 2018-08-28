@@ -29,7 +29,7 @@ export default class Home extends React.Component {
                 <Typography>
                     You don't have addresses set. Visit <Link to="/user-details">User Details</Link> to set them.
                 </Typography>
-            ) : null
+            ) : null }
         </React.Fragment>
     }
 }
