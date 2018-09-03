@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 
 import scrapeCtrl from './scrapeCtrl'
 import userCtrl from './controllers/user'
-
+import lectureCtrl from './controllers/lecture'
 const app = express()
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
@@ -23,6 +23,8 @@ app.get('/route-suggestions/:keyword', scrapeCtrl.locationSuggestions)
 
 app.get('/user-details', userCtrl.getUserAddresses)
 app.post('/user-details', userCtrl.setUserAddresses)
+
+app.get('/lecture-details', lectureCtrl.getLectureDetails)
 
 app.get('/universities', function (req, res) {
     res.json({

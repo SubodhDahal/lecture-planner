@@ -10,7 +10,8 @@ import {
     SET_SUCCESS_MESSAGE,
     SET_ERROR_MESSAGE,
     HIDE_SIDE_MENU,
-    TOGGLE_SIDE_MENU
+    TOGGLE_SIDE_MENU,
+    SET_LECTURE_DETAILS
 } from './action-types'
 
 const initialState = () => ({
@@ -24,7 +25,8 @@ const initialState = () => ({
     userId: '',
     message: initialMessage(),
     title: 'Home',
-    showSideMenu: false
+    showSideMenu: false,
+    lectures:[]
 })
 
 const initialMessage = () => ({
@@ -71,6 +73,9 @@ export default function reducer(state = initialState(), action) {
 
         case TOGGLE_SIDE_MENU:
             return toggleSideMenu(state)
+
+        case SET_LECTURE_DETAILS:
+            return setLectureDetails(state, payload)
 
         default:
             return state
@@ -123,6 +128,13 @@ function setUniversities(state, payload) {
     return {
         ...state,
         universities: payload
+    }
+}
+
+function setLectureDetails(state, payload) {
+    return {
+        ...state,
+        lectures: payload
     }
 }
 
