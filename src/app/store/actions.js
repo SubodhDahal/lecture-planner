@@ -13,7 +13,8 @@ import {
     SET_SUCCESS_MESSAGE,
     SET_ERROR_MESSAGE,
     HIDE_SIDE_MENU,
-    TOGGLE_SIDE_MENU
+    TOGGLE_SIDE_MENU,
+    SET_LECTURE_DETAILS
 } from './action-types'
 
 const SERVER_ROOT = 'localhost'
@@ -48,6 +49,11 @@ export const setLocationSuggestions = (suggestions) => ({
 export const setUniversities = (universities) => ({
     type: SET_UNIVERSITIES,
     payload: universities
+})
+
+export const setLectureDetails = (lectures) => ({
+    type: SET_LECTURE_DETAILS,
+    payload: lectures
 })
 
 export const setUserId = (userId) => ({
@@ -154,5 +160,17 @@ export const performRouteSearch = (source, destination) => async dispatch => {
         dispatch(setRoutes(res.data.data))
     } catch (e) {
         dispatch(setErrorMessage(e.response.data.message))
+    }
+}
+
+export const getLectureDetails = () => async dispatch => {
+    try {
+        dispatch(clearMessage())
+        const res = await axios.get(`${SERVER_URL}/lecture-details`)
+
+        //console.log(res.data.data);
+        dispatch(setLectureDetails(res.data.data))
+    } catch (e) {
+        // dispatch(setErrorMessage(e.response.message))
     }
 }

@@ -22,6 +22,11 @@ npm install
     - `npm run client` to run the client
 - Open [http://localhost:8080/](http://localhost:8080/)
 
+- Lecture Schedule
+    - For Lecture details, we create a mongoDB script that contains subjects and subjects timing information.
+    - Use command `npm run seedlecture`
+
+
 #### As mobile app:
 **Once:**
 - Install `cordova` globally by `npm install -g cordova`
