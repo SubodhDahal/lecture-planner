@@ -17,22 +17,22 @@ var lecturet = [{
     {
         subject: 'C++',
         date:'2018.09.02',
-        time: '10.30'
+        time: '14.45'
     },
     {
         subject: 'Advance cryptography',
         date:'2018.09.03',
-        time: '10.30'
+        time: '16.00'
     },
     {
         subject: 'Modern Web Development',
         date:'2018.09.04',
-        time: '10.30'
+        time: '8.45'
     },
     {
         subject: 'Germany language A2',
         date:'2018.09.05',
-        time: '10.30'
+        time: '13.15'
     }]
 
 Lecture.create(lecturet, function(err, lecture) {
