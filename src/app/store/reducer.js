@@ -11,13 +11,19 @@ import {
     SET_ERROR_MESSAGE,
     HIDE_SIDE_MENU,
     TOGGLE_SIDE_MENU,
-    SET_LECTURE_DETAILS
+    SET_LECTURE_DETAILS,
+    SET_DATE,
+    SET_TIME
 } from './action-types'
 
 const initialState = () => ({
     address: {
         source: '',
         destination: ''
+    },
+    dateTime: {
+        date:'',
+        time:''
     },
     travelRoutes: [],
     locationSuggestions: [],
@@ -43,6 +49,13 @@ export default function reducer(state = initialState(), action) {
 
         case SET_SOURCE_ADDRESS:
             return setSourceAddress(state, payload)
+
+        case SET_DATE:
+            return setLectureDate(state, payload)
+
+        case SET_TIME:
+            return setLectureTime(state, payload)
+
 
         case SET_DESTINATION_ADDRESS:
             return setDestinationAddress(state, payload)
@@ -114,6 +127,33 @@ function setDestinationAddress(state, payload) {
     return {
         ...state,
         address: newAddress
+    }
+}
+
+function setLectureDate(state, payload) {
+    const {dateTime} = state
+
+    const newDateTime = Object.assign({}, dateTime, {
+        date: payload,
+        time: dateTime.time
+    })
+
+    return {
+        ...state,
+        dateTime: newDateTime
+    }
+}
+function setLectureTime(state, payload) {
+    const {dateTime} = state
+
+    const newDateTime = Object.assign({}, dateTime, {
+        date: dateTime.date,
+        time: payload
+    })
+
+    return {
+        ...state,
+        dateTime: newDateTime
     }
 }
 

@@ -14,7 +14,9 @@ import {
     SET_ERROR_MESSAGE,
     HIDE_SIDE_MENU,
     TOGGLE_SIDE_MENU,
-    SET_LECTURE_DETAILS
+    SET_LECTURE_DETAILS,
+    SET_DATE,
+    SET_TIME
 } from './action-types'
 
 const SERVER_ROOT = 'localhost'
@@ -24,6 +26,16 @@ const SERVER_URL = `http://${SERVER_ROOT}:${SERVER_PORT}`
 export const setTitle = title => ({
     type: SET_TITLE,
     payload: title
+})
+
+export const setLectureDate = dateTime => ({
+    type: SET_DATE,
+    payload: dateTime
+})
+
+export const setLectureTime = dateTime => ({
+    type: SET_TIME,
+    payload: dateTime
 })
 
 export const setSourceAddress = address => ({
@@ -172,5 +184,22 @@ export const getLectureDetails = () => async dispatch => {
         dispatch(setLectureDetails(res.data.data))
     } catch (e) {
         // dispatch(setErrorMessage(e.response.message))
+    }
+}
+
+export const performRouteSearchWithDateTime = (source, destination,date,time) => async dispatch => {
+    try {
+        dispatch(clearMessage())
+        console.log(date)
+        const res = await axios.post(`${SERVER_URL}/route-plan`, {
+            from: source,
+            destination: destination,
+            date: date,
+            time: time
+        })
+
+        dispatch(setRoutes(res.data.data))
+    } catch (e) {
+        dispatch(setErrorMessage(e.response.data.message))
     }
 }
