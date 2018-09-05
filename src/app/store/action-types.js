@@ -19,3 +19,6 @@ export const TOGGLE_SIDE_MENU = 'TOGGLE_SIDE_MENU'
 
 export const GET_LECTURE_DETAILS = 'GET_LECTURE_DETAILS'
 export const SET_LECTURE_DETAILS = 'SET_LECTURE_DETAILS'
+
+export const SET_DATE = 'SET_DATE'
+export const SET_TIME = 'SET_TIME'
