@@ -36,17 +36,11 @@ class Navigation extends React.Component {
                 <ListItem button component={Link} to="/">
                     <ListItemText primary="Home" />
                 </ListItem>
-                <ListItem button component={Link} to="/search">
-                    <ListItemText primary="Route Search" />
+                <ListItem button component={Link} to="/lecture-details">
+                    <ListItemText primary="Lectures" />
                 </ListItem>
                 <ListItem button component={Link} to="/user-details">
                     <ListItemText primary="User Details" />
-                </ListItem>
-                <ListItem button component={Link} to="/lecture-details">
-                    <ListItemText primary="Lecture" />
-                </ListItem>
-                <ListItem button component={Link} to="/lecture-route">
-                    <ListItemText primary="" />
                 </ListItem>
             </List>
         </div>

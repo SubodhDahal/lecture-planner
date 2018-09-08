@@ -183,14 +183,15 @@ export const getLectureDetails = () => async dispatch => {
         //console.log(res.data.data);
         dispatch(setLectureDetails(res.data.data))
     } catch (e) {
-        // dispatch(setErrorMessage(e.response.message))
+        dispatch(setErrorMessage(e.response.message))
     }
 }
 
 export const performRouteSearchWithDateTime = (source, destination,date,time) => async dispatch => {
     try {
         dispatch(clearMessage())
-        console.log(date)
+        dispatch(setRoutes([]))
+
         const res = await axios.post(`${SERVER_URL}/route-plan`, {
             from: source,
             destination: destination,

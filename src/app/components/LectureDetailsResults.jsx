@@ -1,18 +1,30 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import List from '@material-ui/core/List'
-import Lecture from './Lecture'
-import ListItem from '@material-ui/core/ListItem'
 import { Redirect } from 'react-router-dom'
 
+import Grid from '@material-ui/core/Grid'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import ListItem from '@material-ui/core/ListItem'
+import SchoolTwoTone from '@material-ui/icons/SchoolTwoTone'
+import { withStyles } from '@material-ui/core/styles'
+
+import Lecture from './Lecture'
 
 import {
     setLectureDate,
     setLectureTime
 } from '../store/actions'
 
+const styles = {
+    classIcon: {
+        marginTop: 10,
+        marginRight: 10
+    }
+}
+
 @connect(({lectures}) => ({lectures}))
-export default class LectureDetailsResults extends React.Component {
+export class LectureDetailsResults extends React.Component {
     constructor(props) {
         super(props)
 
@@ -26,7 +38,7 @@ export default class LectureDetailsResults extends React.Component {
         }
         this.renderRedirect = () => {
             if (this.state.redirect) {
-                return <Redirect to='/lecture-route'/>
+                return <Redirect to='/route-search'/>
             }
         }
 
@@ -48,14 +60,30 @@ export default class LectureDetailsResults extends React.Component {
             return <ListItem
                 button onClick={this._onListItemSelected.bind(this, item.date, item.time)}
                 key={i++} {...item} >
-                Subject: {item.subject},
-                Date:{item.date},
-                Time:{item.time}
+                <Grid container direction="row">
+                    <Grid className={this.props.classes.classIcon}>
+                        <SchoolTwoTone></SchoolTwoTone>
+                    </Grid>
+                    <Grid
+                      direction="column"
+                      justify="flex-start"
+                      alignItems="flex-start"
+                    >
+                        <Typography>
+                            { item.subject }
+                        </Typography>
+                        <Typography color="textSecondary">
+                            {item.date}, {item.time}
+                        </Typography>
+                    </Grid>
+                </Grid>
             </ListItem>
-        }, this);
+        }, this)
+
         return <List>
             {this.renderRedirect()}
             {innerNodes}</List>
-
     }
 }
+
+export default withStyles(styles)(LectureDetailsResults)

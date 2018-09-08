@@ -18,6 +18,7 @@ import {
 export default class TravelRouteSearch extends React.Component {
     constructor (props) {
         super(props)
+        console.log('HERE!!')
 
         props.dispatch(setTitle('Route Search'))
         props.dispatch(hideSideMenu())

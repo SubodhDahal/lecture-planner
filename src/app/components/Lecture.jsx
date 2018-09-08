@@ -9,6 +9,8 @@ export default class Lecture extends React.Component {
     constructor (props) {
         super(props)
 
+        props.dispatch(setTitle('Lectures'))
+
         this.state = {
             redirect: false
         }

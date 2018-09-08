@@ -3,13 +3,12 @@ import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
 import LectureDetailsResults from './LectureDetailsResults'
 
-
-import
-{
+import {
     getLectureDetails ,
-    hideSideMenu
-}
-    from '../store/actions'
+    hideSideMenu,
+    setTitle
+} from '../store/actions'
+
 @connect(({lectures}) => ({lectures}))
 export default class LectureDetails extends React.Component {
     constructor (props) {
@@ -17,12 +16,11 @@ export default class LectureDetails extends React.Component {
 
         props.dispatch(getLectureDetails())
         props.dispatch(hideSideMenu())
+        props.dispatch(setTitle('Lectures'))
     }
+
     render () {
         return <Grid container spacing={8}>
-            <Grid item xs={12}>
-
-            </Grid>
             <Grid item xs={12}>
                 <LectureDetailsResults />
             </Grid>
