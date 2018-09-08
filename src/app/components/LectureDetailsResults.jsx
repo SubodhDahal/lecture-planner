@@ -6,12 +6,12 @@ import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
 import ListItem from '@material-ui/core/ListItem'
-import SchoolTwoTone from '@material-ui/icons/SchoolTwoTone'
 import { withStyles } from '@material-ui/core/styles'
 
 import Lecture from './Lecture'
 
 import {
+    setLecture,
     setLectureDate,
     setLectureTime
 } from '../store/actions'
@@ -42,40 +42,25 @@ export class LectureDetailsResults extends React.Component {
             }
         }
 
-        this._onListItemSelected = (date, time) => {
-            this.setRedirect();
-            //console.log(date,time);
-            props.dispatch(setLectureDate(date))
-            props.dispatch(setLectureTime(time))
-        }
     }
 
     render() {
-
         var autoCompleteList;
         var innerNodes;
-        var onListItemSelected = this._onListItemSelected;
+        var onListItemSelected = this._setLecture;
         var i = 0;
+
         innerNodes = this.props.lectures.map(function (item) {
             return <ListItem
-                button onClick={this._onListItemSelected.bind(this, item.date, item.time)}
+                button onClick={this._setLecture.bind(this, item.subject, item.date, item.time)}
                 key={i++} {...item} >
-                <Grid container direction="row">
-                    <Grid className={this.props.classes.classIcon}>
-                        <SchoolTwoTone></SchoolTwoTone>
-                    </Grid>
-                    <Grid
-                      direction="column"
-                      justify="flex-start"
-                      alignItems="flex-start"
-                    >
-                        <Typography>
-                            { item.subject }
-                        </Typography>
-                        <Typography color="textSecondary">
-                            {item.date}, {item.time}
-                        </Typography>
-                    </Grid>
+                <Grid container direction="column">
+                    <Typography>
+                        { item.subject }
+                    </Typography>
+                    <Typography color="textSecondary">
+                        {item.date}, {item.time}
+                    </Typography>
                 </Grid>
             </ListItem>
         }, this)
@@ -83,6 +68,21 @@ export class LectureDetailsResults extends React.Component {
         return <List>
             {this.renderRedirect()}
             {innerNodes}</List>
+    }
+
+    _setLecture (subject, date, time) {
+        this.setRedirect();
+
+        let lecture = {
+            subject,
+            date,
+            time
+        }
+
+        //console.log(date,time);
+        this.props.dispatch(setLecture(lecture))
+        this.props.dispatch(setLectureDate(date))
+        this.props.dispatch(setLectureTime(time))
     }
 }
 

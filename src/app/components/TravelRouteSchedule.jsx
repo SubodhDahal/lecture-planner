@@ -17,7 +17,7 @@ import {
     setLectureDateTime
 } from '../store/actions'
 
-@connect(({address, dateTime}) => ({address, dateTime}))
+@connect(({user, address, dateTime}) => ({user, address, dateTime}))
 export default class TravelRouteSchedule extends React.Component {
     constructor (props) {
         super(props)
@@ -42,12 +42,12 @@ export default class TravelRouteSchedule extends React.Component {
                 </Button>
             </Grid>
 
-            <Grid item xs={12} direction="column">
+            <Grid item xs={12} container direction="column">
                 <Typography>
                     { this.props.address.source } → { this.props.address.destination }
                 </Typography>
                 <Typography color="textSecondary">
-                    { this.props.dateTime.date } { this.props.dateTime.time }
+                    { this.props.user.lecture.subject } ({ this.props.user.lecture.date } { this.props.user.lecture.time })
                 </Typography>
             </Grid>
 

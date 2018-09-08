@@ -12,6 +12,7 @@ import {
     HIDE_SIDE_MENU,
     TOGGLE_SIDE_MENU,
     SET_LECTURE_DETAILS,
+    SET_LECTURE,
     SET_DATE,
     SET_TIME
 } from './action-types'
@@ -24,6 +25,13 @@ const initialState = () => ({
     dateTime: {
         date:'',
         time:''
+    },
+    user: {
+        lecture: {
+            subject: '',
+            day: '',
+            time: ''
+        }
     },
     travelRoutes: [],
     locationSuggestions: [],
@@ -56,6 +64,8 @@ export default function reducer(state = initialState(), action) {
         case SET_TIME:
             return setLectureTime(state, payload)
 
+        case SET_LECTURE:
+            return setLecture(state, payload)
 
         case SET_DESTINATION_ADDRESS:
             return setDestinationAddress(state, payload)
@@ -143,6 +153,7 @@ function setLectureDate(state, payload) {
         dateTime: newDateTime
     }
 }
+
 function setLectureTime(state, payload) {
     const {dateTime} = state
 
@@ -154,6 +165,15 @@ function setLectureTime(state, payload) {
     return {
         ...state,
         dateTime: newDateTime
+    }
+}
+
+function setLecture(state, payload) {
+    return {
+        ...state,
+        user: {
+            lecture: payload
+        }
     }
 }
 

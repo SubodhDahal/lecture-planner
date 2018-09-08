@@ -15,6 +15,7 @@ import {
     HIDE_SIDE_MENU,
     TOGGLE_SIDE_MENU,
     SET_LECTURE_DETAILS,
+    SET_LECTURE,
     SET_DATE,
     SET_TIME
 } from './action-types'
@@ -26,6 +27,11 @@ const SERVER_URL = `http://${SERVER_ROOT}:${SERVER_PORT}`
 export const setTitle = title => ({
     type: SET_TITLE,
     payload: title
+})
+
+export const setLecture = lecture => ({
+    type: SET_LECTURE,
+    payload: lecture
 })
 
 export const setLectureDate = dateTime => ({
