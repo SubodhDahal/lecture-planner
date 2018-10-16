@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
-import { isAddressSet } from '../utilities'
+import { isAddressSet } from '../../utilities'
 
 import TravelRouteResults from './TravelRouteResults'
 
@@ -15,7 +15,7 @@ import {
     setTitle,
     performRouteSearchWithDateTime,
     setLectureDateTime
-} from '../store/actions'
+} from '../../store/actions'
 
 @connect(({user, address, dateTime}) => ({user, address, dateTime}))
 export default class TravelRouteSchedule extends React.Component {

@@ -14,7 +14,7 @@ import {
     setLecture,
     setLectureDate,
     setLectureTime
-} from '../store/actions'
+} from '../../store/actions'
 
 const styles = {
     classIcon: {

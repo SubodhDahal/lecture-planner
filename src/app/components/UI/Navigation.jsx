@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 
 import {
     toggleSideMenu
-} from '../store/actions'
+} from '../../store/actions'
 
 const styles = {
     root: {
