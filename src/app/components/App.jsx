@@ -1,12 +1,12 @@
 import React from 'react'
 import {Route} from 'react-router-dom'
 
-import AlertMessage from './AlertMessage'
-import AppHeader from './AppHeader'
+import AlertMessage from './UI/AlertMessage'
+import AppHeader from './UI/AppHeader'
 import Home from './Home'
-import UserDetails from './UserDetails'
-import LectureDetails from './LectureDetails'
-import TravelRouteSchedule from './TravelRouteSchedule'
+import UserDetails from './User/UserDetails'
+import LectureDetails from './Lecture/LectureDetails'
+import TravelRouteSchedule from './TravelRoute/TravelRouteSchedule'
 
 export default class App extends React.Component {
     constructor(props) {

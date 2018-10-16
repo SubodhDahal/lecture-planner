@@ -13,7 +13,7 @@ import Navigation from './Navigation'
 
 import {
     toggleSideMenu
-} from '../store/actions'
+} from '../../store/actions'
 
 const styles = {
     header: {

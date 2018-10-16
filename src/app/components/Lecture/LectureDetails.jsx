@@ -7,7 +7,7 @@ import {
     getLectureDetails ,
     hideSideMenu,
     setTitle
-} from '../store/actions'
+} from '../../store/actions'
 
 @connect(({lectures}) => ({lectures}))
 export default class LectureDetails extends React.Component {
