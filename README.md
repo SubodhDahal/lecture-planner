@@ -4,7 +4,7 @@ An application to allow university students in Kiel to find out possible ways fo
 
 Created for *MI133 Modern Web Development* course, Fachhochschule Kiel.
 
-![Demo](./demo.gif =300x)
+<img src="demo.gif" alt="Demo" width="300"/>
 
 ### Setup
 In the terminal, run:
